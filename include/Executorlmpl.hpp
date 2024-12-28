@@ -13,7 +13,7 @@ public:
     Executorlmpl& operator=(const Executorlmpl&)=delete;
 
 public:
-    void Execute(const std::string& command) noexcept override;
+    void Execute(const std::string& commands) noexcept override;
     Pose Query(void) const noexcept override;
 
 private:
