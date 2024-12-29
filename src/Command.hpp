@@ -80,19 +80,21 @@ public:
 class MoveCommand final
 {
 public:
-    const std::function<void(PoseHandler& PoseHandler)>operate=[](PoseHandler& poseHandler)noexcept{
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
 
         poseHandler.Move();
-    };
+    }
 };
 
 class TurnLeftCommand final
 {
 public:
-    const std::function<void(PoseHandler& PoseHandler)>operate=[](PoseHandler& poseHandler)noexcept{
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
@@ -101,13 +103,14 @@ public:
         } else {
             poseHandler.TurnRight();
         }
-    };
+    }
 };
 
 class TurnRightCommand final
 {
 public:
-    const std::function<void(PoseHandler& PoseHandler)>operate=[](PoseHandler& poseHandler)noexcept{
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
@@ -116,23 +119,25 @@ public:
         } else {
             poseHandler.TurnLeft();
         }
-    };
+    }
 };
 
 class FastCommand final
 {
 public:
-    const std::function<void(PoseHandler& PoseHandler)>operate=[](PoseHandler& poseHandler)noexcept{
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         poseHandler.Fast();
-    };
+    }
 };
 
 class BackCommand final
 {
 public:
-    const std::function<void(PoseHandler& PoseHandler)>operate=[](PoseHandler& poseHandler)noexcept{
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         poseHandler.Back();
-    };
+    }
 };
 
 }
