@@ -21,6 +21,5 @@ public:
 
 private:
     PoseHandler poseHandler;
-    std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
 };
 }
