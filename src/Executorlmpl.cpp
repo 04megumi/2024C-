@@ -1,4 +1,7 @@
 #include "Executorlmpl.hpp"
+#include "CmderFactory.hpp"
+#include "Singleton.hpp"
+
 namespace adas
 {
 Executor* Executor::NewExecutor(const Pose& pose) noexcept
@@ -12,21 +15,11 @@ Executorlmpl::Executorlmpl(const Pose& pose) noexcept : poseHandler(pose)
 
 void Executorlmpl::Execute(const std::string &commands) noexcept
 {
-    const std::unordered_map<char,std::function<void(PoseHandler& poseHandler)>>cmderMap{
-        {'M',MoveCommand()},
-        {'L',TurnLeftCommand()},
-        {'R',TurnRightCommand()},
-        {'F',FastCommand()},
-        {'B',BackCommand()},
-    };
+    const auto cmders = std::Singleton<CmderFactory>::Instance().GetCmders(commands);
 
-    for(const auto cmd :commands) {
-        const auto it = cmderMap.find(cmd);
-
-        if(it != cmderMap.end()) {
-            it->second(poseHandler);
-        }
-    }
+    std::for_each(
+        cmders.begin(),cmders.end(),
+        [this](const Cmder& cmder)noexcept{cmder(poseHandler);});
 }
 
 Pose Executorlmpl::Query(void) const noexcept
