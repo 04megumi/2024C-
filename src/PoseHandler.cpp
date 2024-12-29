@@ -2,62 +2,26 @@
 
 namespace adas
 {
-PoseHandler::PoseHandler(const Pose& pose) noexcept : pose(pose), fast(false), back(false) 
+PoseHandler::PoseHandler(const Pose& pose) noexcept : point(pose.x,pose.y), facing(&Direction::GetDirection(pose.heading)), fast(false), back(false) 
 {}
 
 void PoseHandler::Move(void) noexcept
 {
-    if(pose.heading=='E'){
-        if(!back) {
-            ++pose.x;
-        } else {
-            --pose.x;
-        }   
-    } else if(pose.heading=='W') {
-        if(!back) {
-            --pose.x;
-        } else {
-            ++pose.x;
-        }   
-    } else if(pose.heading=='N') {
-        if(!back) {
-            ++pose.y;
-        } else {
-            --pose.y;
-        } 
-    } else if(pose.heading=='S') {
-        if(!back) {
-            --pose.y;
-        } else {
-            ++pose.y;
-        } 
-    }
+    if(!back) {
+        point+=facing->Move();
+    } else {
+        point-=facing->Move();
+    }   
 }
 
 void PoseHandler::TurnLeft(void) noexcept
 {
-    if(pose.heading=='E'){
-        pose.heading='N';
-    } else if(pose.heading=='N') {
-        pose.heading='W';
-    } else if(pose.heading=='W') {
-        pose.heading='S';
-    } else if(pose.heading=='S') {
-        pose.heading='E';
-    }
+    facing=&(facing->LeftOne());
 }
 
 void PoseHandler::TurnRight(void) noexcept
 {
-    if(pose.heading=='E'){
-        pose.heading='S';
-    } else if(pose.heading=='S') {
-        pose.heading='W';
-    } else if(pose.heading=='W') {
-        pose.heading='N';
-    } else if(pose.heading=='N') {
-        pose.heading='E';
-    }
+    facing=&(facing->RightOne());
 }
 
 void PoseHandler::Fast(void) noexcept
@@ -82,6 +46,9 @@ bool PoseHandler::IsBack(void) const noexcept
 
 Pose PoseHandler::Query(void) const noexcept
 {
+    Pose pose;
+    pose.x = point.GetX(), pose.y = point.GetY();
+    pose.heading = facing->GetHeading();
     return pose;
 }
 

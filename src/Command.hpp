@@ -85,7 +85,6 @@ public:
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
-
         poseHandler.Move();
     }
 };
