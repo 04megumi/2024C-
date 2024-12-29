@@ -14,11 +14,14 @@ void Executorlmpl::Execute(const std::string &commands) noexcept
 {
     for(const auto cmd :commands) {
         if(cmd=='M'){
-            Move();
+            std::unique_ptr<MoveCommand>cmder=std::make_unique<MoveCommand>();
+            cmder->DoOperate(*this);
         } else if(cmd=='L'){
-            TurnLeft();
+            std::unique_ptr<TurnLeftCommand>cmder=std::make_unique<TurnLeftCommand>();
+            cmder->DoOperate(*this);
         } else if(cmd=='R'){
-            TurnRight();
+            std::unique_ptr<TurnRightCommand>cmder=std::make_unique<TurnRightCommand>();
+            cmder->DoOperate(*this);
         }
     }
 }
@@ -27,6 +30,7 @@ Pose Executorlmpl::Query(void) const noexcept
 {
     return pose;
 }
+
 void Executorlmpl::Move(void) noexcept
 {
     if(pose.heading=='E'){
