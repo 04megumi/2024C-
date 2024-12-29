@@ -6,7 +6,7 @@ Executor* Executor::NewExecutor(const Pose& pose) noexcept
     return new(std::nothrow)Executorlmpl(pose);
 }
 
-Executorlmpl::Executorlmpl(const Pose& pose) noexcept : pose(pose)
+Executorlmpl::Executorlmpl(const Pose& pose) noexcept : pose(pose), fast(false)
 {
 }
 
@@ -20,6 +20,8 @@ void Executorlmpl::Execute(const std::string &commands) noexcept
             cmder = std::make_unique<TurnLeftCommand>();
         } else if(cmd=='R'){
             cmder = std::make_unique<TurnRightCommand>();
+        } else if(cmd=='F') {
+            cmder = std::make_unique<FastCommand>();
         }
         if(cmder) cmder->DoOperate(*this);
     }
@@ -65,5 +67,13 @@ void Executorlmpl::TurnRight() noexcept
     } else if(pose.heading=='N') {
         pose.heading='E';
     }
+}
+void Executorlmpl::Fast() noexcept
+{
+    fast = !fast;
+}
+bool Executorlmpl::IsFast(void) const noexcept
+{
+    return fast;
 }
 }
