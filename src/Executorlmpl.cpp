@@ -14,35 +14,11 @@ void Executorlmpl::Execute(const std::string &commands) noexcept
 {
     for(const auto cmd :commands) {
         if(cmd=='M'){
-            if(pose.heading=='E'){
-                ++pose.x;
-            } else if(pose.heading=='W') {
-                --pose.x;
-            } else if(pose.heading=='N') {
-                ++pose.y;
-            } else if(pose.heading=='S') {
-                --pose.y;
-            }
+            Move();
         } else if(cmd=='L'){
-            if(pose.heading=='E'){
-                pose.heading='N';
-            } else if(pose.heading=='N') {
-                pose.heading='W';
-            } else if(pose.heading=='W') {
-                pose.heading='S';
-            } else if(pose.heading=='S') {
-                pose.heading='E';
-            }
+            TurnLeft();
         } else if(cmd=='R'){
-            if(pose.heading=='E'){
-                pose.heading='S';
-            } else if(pose.heading=='S') {
-                pose.heading='W';
-            } else if(pose.heading=='W') {
-                pose.heading='N';
-            } else if(pose.heading=='N') {
-                pose.heading='E';
-            }
+            TurnRight();
         }
     }
 }
@@ -50,5 +26,41 @@ void Executorlmpl::Execute(const std::string &commands) noexcept
 Pose Executorlmpl::Query(void) const noexcept
 {
     return pose;
+}
+void Executorlmpl::Move(void) noexcept
+{
+    if(pose.heading=='E'){
+        ++pose.x;
+    } else if(pose.heading=='W') {
+        --pose.x;
+    } else if(pose.heading=='N') {
+        ++pose.y;
+    } else if(pose.heading=='S') {
+        --pose.y;
+    }
+}
+void Executorlmpl::TurnLeft() noexcept
+{
+    if(pose.heading=='E'){
+        pose.heading='N';
+    } else if(pose.heading=='N') {
+        pose.heading='W';
+    } else if(pose.heading=='W') {
+        pose.heading='S';
+    } else if(pose.heading=='S') {
+        pose.heading='E';
+    }
+}
+void Executorlmpl::TurnRight() noexcept
+{
+    if(pose.heading=='E'){
+        pose.heading='S';
+    } else if(pose.heading=='S') {
+        pose.heading='W';
+    } else if(pose.heading=='W') {
+        pose.heading='N';
+    } else if(pose.heading=='N') {
+        pose.heading='E';
+    }
 }
 }

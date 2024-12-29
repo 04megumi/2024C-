@@ -188,5 +188,6 @@ TEST(ExecutorTest,should_return_facing_E_given_command_is_R_and_facing_is_N)
     const Pose target({0,0,'E'});
     ASSERT_EQ(target,executor->Query());
 }
+ 
 
 }

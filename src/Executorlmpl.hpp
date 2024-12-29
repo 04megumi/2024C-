@@ -18,5 +18,8 @@ public:
 
 private:
     Pose pose;
+    void Move(void) noexcept;
+    void TurnLeft() noexcept;
+    void TurnRight() noexcept;
 };
 }
