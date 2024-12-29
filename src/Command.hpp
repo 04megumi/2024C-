@@ -16,7 +16,8 @@ class MoveCommand final : public ICommand
 public:
     void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
-        if(poseHandler.IsFast()){
+        if(poseHandler.IsFast())
+        {
             poseHandler.Move();
         }
         poseHandler.Move();
@@ -31,7 +32,11 @@ public:
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
-        poseHandler.TurnLeft();
+        if(!poseHandler.IsBack()) {
+            poseHandler.TurnLeft();
+        } else {
+            poseHandler.TurnRight();
+        }
     }
 };
 
@@ -43,7 +48,11 @@ public:
         if(poseHandler.IsFast()){
             poseHandler.Move();
         }
-        poseHandler.TurnRight();
+        if(!poseHandler.IsBack()){
+            poseHandler.TurnRight();
+        } else {
+            poseHandler.TurnLeft();
+        }
     }
 };
 
@@ -53,6 +62,15 @@ public:
     void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
         poseHandler.Fast();
+    }
+};
+
+class BackCommand final : public ICommand
+{
+public:
+    void DoOperate(PoseHandler& poseHandler) const noexcept override
+    {
+        poseHandler.Back();
     }
 };
 

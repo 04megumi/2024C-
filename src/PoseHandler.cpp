@@ -2,18 +2,35 @@
 
 namespace adas
 {
-PoseHandler::PoseHandler(const Pose& pose) noexcept : pose(pose), fast(false) {}
+PoseHandler::PoseHandler(const Pose& pose) noexcept : pose(pose), fast(false), back(false) 
+{}
 
 void PoseHandler::Move(void) noexcept
 {
     if(pose.heading=='E'){
-        ++pose.x;
+        if(!back) {
+            ++pose.x;
+        } else {
+            --pose.x;
+        }   
     } else if(pose.heading=='W') {
-        --pose.x;
+        if(!back) {
+            --pose.x;
+        } else {
+            ++pose.x;
+        }   
     } else if(pose.heading=='N') {
-        ++pose.y;
+        if(!back) {
+            ++pose.y;
+        } else {
+            --pose.y;
+        } 
     } else if(pose.heading=='S') {
-        --pose.y;
+        if(!back) {
+            --pose.y;
+        } else {
+            ++pose.y;
+        } 
     }
 }
 
@@ -48,9 +65,19 @@ void PoseHandler::Fast(void) noexcept
     fast = !fast;
 }
 
+void PoseHandler::Back(void) noexcept
+{
+    back = !back;
+}
+
 bool PoseHandler::IsFast(void) const noexcept
 {
     return fast;
+}
+
+bool PoseHandler::IsBack(void) const noexcept
+{
+    return back;
 }
 
 Pose PoseHandler::Query(void) const noexcept

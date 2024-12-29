@@ -12,6 +12,7 @@ Executorlmpl::Executorlmpl(const Pose& pose) noexcept : poseHandler(pose)
     cmderMap['L'] = std::make_unique<TurnLeftCommand>();
     cmderMap['R'] = std::make_unique<TurnRightCommand>();
     cmderMap['F'] = std::make_unique<FastCommand>();
+    cmderMap['B'] = std::make_unique<BackCommand>();
 }
 
 void Executorlmpl::Execute(const std::string &commands) noexcept

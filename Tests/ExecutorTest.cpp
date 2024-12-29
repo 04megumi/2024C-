@@ -240,6 +240,97 @@ TEST(ExecutorTest,should_return_y_plus_1_given_command_is_FFM_and_facing_is_N)
     const Pose target({0,1,'N'});
     ASSERT_EQ(target,executor->Query());
 }
+
+TEST(ExecutorTest,should_return_y_minus_1_given_command_is_BM_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BM");
+
+    //then
+    const Pose target({0,-1,'N'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_facing_E_given_command_is_BL_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BL");
+
+    //then
+    const Pose target({0,0,'E'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_facing_E_given_command_is_BR_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BR");
+
+    //then
+    const Pose target({0,0,'W'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_y_minus_2_given_command_is_BFM_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BFM");
+
+    //then
+    const Pose target({0,-2,'N'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_y_minus_1_facing_E_given_command_is_BFL_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BFL");
+
+    //then
+    const Pose target({0,-1,'E'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_y_minus_1_facing_W_given_command_is_BFR_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BFR");
+
+    //then
+    const Pose target({0,-1,'W'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_return_y_plus_1_facing_N_given_command_is_BBM_and_facing_is_N)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'N'}));
+
+    //when
+    executor->Execute("BBM");
+
+    //then
+    const Pose target({0,1,'N'});
+    ASSERT_EQ(target,executor->Query());
+}
  
 
 }

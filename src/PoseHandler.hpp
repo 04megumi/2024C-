@@ -14,11 +14,14 @@ public:
     void TurnLeft(void) noexcept;
     void TurnRight(void) noexcept;
     void Fast(void) noexcept;
+    void Back(void) noexcept;
     bool IsFast(void) const noexcept;
+    bool IsBack(void) const noexcept;
     Pose Query(void) const noexcept;
 
 private:
     Pose pose;
     bool fast;
+    bool back;
 };
 }
