@@ -1,5 +1,7 @@
 #pragma once
-#include "Executor.hpp"
+#include "PoseHandler.hpp"
+#include "Command.hpp"
+#include <unordered_map>
 
 namespace adas
 {
@@ -18,68 +20,7 @@ public:
 
 
 private:
-    Pose pose;
-    bool fast;
-
-private:
-    void Move(void) noexcept;
-    void TurnLeft() noexcept;
-    void TurnRight() noexcept;
-    void Fast() noexcept;
-    bool IsFast(void) const noexcept;
-
-    
-    class ICommand
-    {
-    public:
-        virtual ~ICommand()=default;
-        virtual void DoOperate(Executorlmpl& executor) const noexcept=0;
-    };
-
-    class MoveCommand final : public ICommand
-    {
-    public:
-        void DoOperate(Executorlmpl& executor) const noexcept override
-        {
-            if(executor.IsFast()){
-                executor.Move();
-            }
-            executor.Move();
-        }
-    };
-
-    class TurnLeftCommand final : public ICommand
-    {
-    public:
-        void DoOperate(Executorlmpl& executor) const noexcept override
-        {
-            if(executor.IsFast()){
-                executor.Move();
-            }
-            executor.TurnLeft();
-        }
-    };
-
-    class TurnRightCommand final : public ICommand
-    {
-    public:
-        void DoOperate(Executorlmpl& executor) const noexcept override
-        {
-            if(executor.IsFast()){
-                executor.Move();
-            }
-            executor.TurnRight();
-        }
-    };
-
-    class FastCommand final : public ICommand
-    {
-    public:
-        void DoOperate(Executorlmpl& executor) const noexcept override
-        {
-            executor.Fast();
-        }
-    };
-
+    PoseHandler poseHandler;
+    std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
 };
 }
