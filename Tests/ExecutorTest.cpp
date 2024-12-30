@@ -331,6 +331,45 @@ TEST(ExecutorTest,should_return_y_plus_1_facing_N_given_command_is_BBM_and_facin
     const Pose target({0,1,'N'});
     ASSERT_EQ(target,executor->Query());
 }
+
+TEST(ExecutorTest,should_normal_tr_build_left_forward_left)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'E'}));
+
+    //when
+    executor->Execute("TR");
+
+    //then
+    const Pose target({0,1,'W'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,should_fast_tr_build_forward_left_forward_left)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'E'}));
+
+    //when
+    executor->Execute("FTR");
+
+    //then
+    const Pose target({1, 1,'W'});
+    ASSERT_EQ(target,executor->Query());
+}
+
+TEST(ExecutorTest,in_the_B_state_should_be_ignored)
+{
+    //given
+    std::unique_ptr<Executor>executor(Executor::NewExecutor({0,0,'E'}));
+
+    //when
+    executor->Execute("BTR");
+
+    //then
+    const Pose target({0, 0,'E'});
+    ASSERT_EQ(target,executor->Query());
+}
  
 
 }
