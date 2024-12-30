@@ -3,7 +3,6 @@
 #include <functional>
 #include <list>
 #include <unordered_map>
-
 #include "Command.hpp"
 
 namespace adas
@@ -29,7 +28,8 @@ private:
         {'L',TurnLeftCommand()},
         {'R',TurnRightCommand()},
         {'F',FastCommand()},
-        {'B',BackCommand()}
+        {'B',BackCommand()},
+        {'Z',TurnRoundCommand()}
     };
 };
 
