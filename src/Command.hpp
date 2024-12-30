@@ -139,4 +139,21 @@ public:
     }
 };
 
+class TurnRoundCommand final
+{
+public:
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
+        if(poseHandler.IsBack())    return;
+
+        if(poseHandler.IsFast())    poseHandler.Move();
+
+        poseHandler.TurnLeft();
+
+        poseHandler.Move();
+
+        poseHandler.TurnLeft();
+    }
+};
+
 }
